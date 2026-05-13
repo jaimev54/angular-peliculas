@@ -1,0 +1,44 @@
+<table mat-table [dataSource]="listado" class="mat-elevation-z8" *ngIf="listado && listado.length > 0">
+
+  <ng-container *ngFor="let col of columnasAMostrar" [matColumnDef]="col">
+    <th mat-header-cell *matHeaderCellDef> {{ col | titlecase }} </th>
+
+    <td mat-cell *matCellDef="let element">
+      <ng-container [ngSwitch]="col">
+
+        <ng-container *ngSwitchCase="'acciones'">
+          <button mat-flat-button color="primary" (click)="editar.emit(element)">
+            editar
+          </button>
+
+          <!-- ✅ SWEETALERT SOLO EN HTML -->
+          <button
+            mat-flat-button
+            color="warn"
+            class="accion-borrar"
+            [swal]="{
+              title: '¿Eliminar?',
+              text: 'Esta acción no se puede deshacer',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Sí, eliminar',
+              cancelButtonText: 'Cancelar',
+              confirmButtonColor: '#d33'
+            }"
+            (confirm)="borrar.emit(element.id)">
+            borrar
+          </button>
+        </ng-container>
+
+        <ng-container *ngSwitchDefault>
+          {{ element[col] }}
+        </ng-container>
+
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnasAMostrar"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnasAMostrar"></tr>
+</table>
+

@@ -1,0 +1,8 @@
+<h2>{{ titulo }}</h2>
+<app-motrar-errores [errores]="errores"></app-motrar-errores>
+
+<ng-template #contenedorFormulario></ng-template>
+
+@if (cargando){
+    <app-cargando></app-cargando>
+}

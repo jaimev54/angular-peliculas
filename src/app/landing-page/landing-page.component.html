@@ -1,0 +1,24 @@
+
+<app-autorizado roll="admin">
+    <ng-container autorizado>
+        <div>
+            estas autorizado para ver el contenido
+        </div> 
+    </ng-container>
+    <ng-container noAutorizado>
+        <div>
+            no estas autorizado para ver el contenido
+        </div>
+    </ng-container>       
+ </app-autorizado>
+
+
+
+
+<h2>En Cines</h2>
+
+<app-listado-peliculas [peliculas]="peliculasEnCines" (borrado)="peliculaBorrada()"></app-listado-peliculas>
+
+<h2>Próximos Estrenos</h2>
+
+<app-listado-peliculas [peliculas]="peliculasProximosEstrenos" (borrado)="peliculaBorrada()"></app-listado-peliculas>

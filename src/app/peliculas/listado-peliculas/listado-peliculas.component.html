@@ -1,0 +1,38 @@
+<!--<app-listado-generico [listado]="peliculas">-->
+
+<div class="peliculas-contenedor">
+  @if (peliculas && peliculas.length === 0) {
+  <p style="opacity:.7">No hay películas para mostrar…</p>
+  <!-- DEBUG opcional: <pre>{{ peliculas | json }}</pre> -->
+  } @else if (peliculas && peliculas.length > 0) {
+  @for (pelicula of peliculas; track $index) {
+  <div class="pelicula-contenedor">
+    <a [routerLink]="['/peliculas', pelicula.id]">
+      <h3>{{ pelicula.titulo }}</h3>
+    </a>
+    <div>
+      @if (pelicula.poster) {
+      <img [src]="pelicula.poster" width="190" height="260" />
+      } @else {
+      <img src="default.jpg" width="190" height="260" />
+      }
+    </div>
+
+    <app-autorizado rol="admin">
+      <ng-container autorizado>
+          <p [routerLink]="['/peliculas', pelicula.id]">Pelicula: {{ pelicula.titulo | uppercase }}</p>
+          <a mat-flat-button color="primary" [routerLink]="['/peliculas/editar', pelicula.id]">Editar</a>
+          <button mat-flat-button type="button" color="warn" [swal]="{title: 'Confirmación',
+          text: 'Deseas borrar el registro?', showCancelButton: true}" (confirm)="borrar(pelicula.id)" >Borrar</button>
+      </ng-container>
+    </app-autorizado>
+
+    
+
+    
+  </div>
+  }
+  }
+</div>
+
+<!--</app-listado-generico>-->
